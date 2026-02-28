@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shri Swami Samarth Masale – Premium Indian Spices</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--maroon:#7B0D0D;--maroon2:#9C1515;--gold:#C9A227;--gold-lt:#E8C94A;--cream:#FDF4E3;--cream2:#F5E6C8;--dark:#1A0505;--text:#2C0A0A;--white:#FFFDF8;--shadow:rgba(123,13,13,.22);--green:#1a7a1a}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Lato',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:var(--cream2)}
+    ::-webkit-scrollbar-thumb{background:var(--maroon);border-radius:10px}
+
+    /* ── LOADER ── */
+    #loader{position:fixed;inset:0;background:var(--dark);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:opacity .6s,visibility .6s}
+    #loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+    .loader-spin{width:80px;height:80px;border-radius:50%;border:3px solid rgba(201,162,39,.25);border-top-color:var(--gold);animation:spin 1s linear infinite;display:flex;align-items:center;justify-content:center;font-size:2rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loader-txt{font-family:'Cinzel',serif;color:var(--gold);font-size:.88rem;letter-spacing:.25em;animation:pulse 1.2s ease infinite alternate}
+    @keyframes pulse{to{opacity:.3}}
+
+    /* ── CURSOR ── */
+    .cursor{width:12px;height:12px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:8000;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:multiply}
+    .cursor.grow{width:36px;height:36px;background:rgba(201,162,39,.35)}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;width:100%;z-index:700;display:flex;align-items:center;justify-content:space-between;padding:.7rem 3.5rem;background:rgba(26,5,5,.95);backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,162,39,.22);transition:padding .3s,box-shadow .3s}
+    nav.scrolled{padding:.5rem 3.5rem;box-shadow:0 4px 30px rgba(0,0,0,.4)}
+    .nav-logo{display:flex;align-items:center;gap:.75rem;cursor:pointer}
+    .nav-logo img{width:48px;height:48px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;box-shadow:0 0 12px rgba(201,162,39,.4);transition:transform .3s}
+    .nav-logo:hover img{transform:scale(1.08)}
+    .nav-brand{font-family:'Cinzel',serif;color:var(--gold);font-size:.8rem;letter-spacing:.06em;line-height:1.2}
+    .nav-brand span{display:block;font-family:'Lato',sans-serif;font-size:.6rem;color:var(--cream2);letter-spacing:.18em;font-weight:300;margin-top:.1rem}
+    .nav-links{display:flex;align-items:center;gap:1.8rem}
+    .nav-links a{font-size:.78rem;letter-spacing:.1em;color:rgba(253,244,227,.75);text-transform:uppercase;font-weight:700;position:relative;transition:color .25s}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gold);transition:width .3s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-links a:hover::after{width:100%}
+    .nav-right{display:flex;align-items:center;gap:.8rem}
+    .nav-cart-btn{position:relative;background:rgba(201,162,39,.12);border:1.5px solid rgba(201,162,39,.3);color:var(--gold);padding:.4rem .9rem;border-radius:50px;font-size:.78rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:.25s}
+    .nav-cart-btn:hover{background:rgba(201,162,39,.2)}
+    .nav-cart-badge{background:var(--maroon);color:var(--gold);font-size:.6rem;font-weight:700;padding:.1rem .35rem;border-radius:50px;margin-left:.1rem}
+    .nav-user-btn{background:linear-gradient(135deg,var(--gold),#9A7510);color:var(--dark);padding:.4rem 1.1rem;border-radius:50px;font-size:.78rem;font-weight:700;cursor:pointer;transition:.2s;border:none;display:flex;align-items:center;gap:.35rem}
+    .nav-user-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(201,162,39,.45)}
+    .nav-login-btn{border:1.5px solid rgba(201,162,39,.4);color:var(--gold);padding:.4rem 1.1rem;border-radius:50px;font-size:.78rem;font-weight:700;cursor:pointer;transition:.25s;background:none}
+    .nav-login-btn:hover{background:rgba(201,162,39,.1)}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .hamburger span{width:26px;height:2px;background:var(--gold);border-radius:4px}
+    .mobile-menu{display:none;position:fixed;inset:0;background:rgba(26,5,5,.97);flex-direction:column;align-items:center;justify-content:center;gap:2rem;z-index:699}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a,.mobile-menu button{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;background:none;border:none;cursor:pointer}
+    .mob-close{position:absolute;top:1.5rem;right:1.5rem;color:var(--gold);font-size:1.6rem;background:none;border:none;cursor:pointer}
+
+    /* ── MARQUEE ── */
+    #marquee-bar{background:linear-gradient(90deg,var(--maroon),#5c0808,var(--maroon));padding:.6rem 0;overflow:hidden;margin-top:66px}
+    .marquee-track{display:flex;white-space:nowrap;animation:marqueeAnim 24s linear infinite;font-family:'Cinzel',serif;font-size:.7rem;color:var(--gold);letter-spacing:.18em}
+    .marquee-track span{margin:0 2.5rem}
+    .marquee-track .dot{color:rgba(201,162,39,.4)}
+    @keyframes marqueeAnim{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* ── HERO ── */
+    #hero{min-height:100vh;background:radial-gradient(ellipse at 30% 60%,#5c0808 0%,var(--dark) 65%);display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:5rem 5rem 4rem;position:relative;overflow:hidden}
+    .hero-mandala{position:absolute;right:-180px;top:50%;transform:translateY(-50%);width:750px;height:750px;opacity:.05;animation:rotateSlow 35s linear infinite}
+    @keyframes rotateSlow{to{transform:translateY(-50%) rotate(360deg)}}
+    .hero-particles span{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:0;animation:floatUp var(--d) ease-in var(--dl) infinite}
+    @keyframes floatUp{0%{opacity:0;transform:translateY(0)}40%{opacity:.8}100%{opacity:0;transform:translateY(-250px)}}
+    .hero-left{position:relative;z-index:2;animation:fadeInLeft .9s ease both}
+    @keyframes fadeInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,162,39,.35);padding:.28rem .9rem;border-radius:50px;margin-bottom:1.2rem}
+    h1.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);color:var(--white);line-height:1.15;font-weight:700;margin-bottom:1rem}
+    h1.hero-title em{color:var(--gold);font-style:italic}
+    .hero-sub{color:rgba(253,244,227,.65);font-size:.9rem;line-height:1.8;max-width:480px;margin-bottom:2rem}
+    .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn-gold{background:linear-gradient(135deg,var(--gold),#9A7510);color:var(--dark);padding:.7rem 2rem;border-radius:50px;font-weight:700;font-size:.82rem;letter-spacing:.07em;box-shadow:0 6px 20px rgba(201,162,39,.45);transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:.5rem;border:none;cursor:pointer}
+    .btn-gold:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(201,162,39,.55)}
+    .btn-outline{border:1.5px solid rgba(201,162,39,.5);color:var(--gold);padding:.7rem 2rem;border-radius:50px;font-weight:700;font-size:.82rem;letter-spacing:.07em;transition:.25s;display:inline-flex;align-items:center;gap:.5rem;background:none;cursor:pointer}
+    .btn-outline:hover{background:rgba(201,162,39,.1);border-color:var(--gold)}
+    .hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(201,162,39,.15)}
+    .stat .n{font-family:'Cinzel',serif;font-size:1.45rem;color:var(--gold);font-weight:700}
+    .stat .l{font-size:.65rem;letter-spacing:.15em;color:rgba(253,244,227,.5);text-transform:uppercase;margin-top:.15rem}
+    .hero-right{display:flex;justify-content:center;align-items:center;position:relative;z-index:2;animation:fadeInRight .9s ease .2s both}
+    @keyframes fadeInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+    .hero-orb{position:relative;width:340px;height:340px}
+    .orb-ring{position:absolute;border-radius:50%;border:1.5px solid rgba(201,162,39,.28)}
+    .r1{inset:-22px;animation:rotateSlow 18s linear infinite}
+    .r2{inset:-44px;animation:rotateSlow 28s linear infinite reverse}
+    .orb-img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:4px solid var(--gold);box-shadow:0 0 60px rgba(201,162,39,.3),0 0 120px rgba(123,13,13,.5)}
+    .spice-float{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(26,5,5,.85);border:1.5px solid rgba(201,162,39,.5);display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+    .sf1{top:-14px;left:50%;transform:translateX(-50%);animation:bob1 3s ease-in-out infinite}
+    .sf2{top:50%;right:-22px;transform:translateY(-50%);animation:bob2 3s ease-in-out .6s infinite}
+    .sf3{bottom:-14px;left:50%;transform:translateX(-50%);animation:bob1 3s ease-in-out 1.2s infinite}
+    .sf4{top:50%;left:-22px;transform:translateY(-50%);animation:bob2 3s ease-in-out 1.8s infinite}
+    @keyframes bob1{0%,100%{transform:translateX(-50%)}50%{transform:translateX(-50%) translateY(-9px)}}
+    @keyframes bob2{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 9px))}}
+
+    /* ── SECTION COMMONS ── */
+    section{padding:5rem 4rem}
+    .stag{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem}
+    .stag::before,.stag::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.35))}
+    .stag::after{background:linear-gradient(to left,transparent,rgba(201,162,39,.35))}
+    .stag span{font-size:.67rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:700}
+    h2.stitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.9rem);text-align:center;font-weight:700;margin-bottom:.4rem}
+    .ssub{text-align:center;max-width:560px;margin:0 auto 3rem;line-height:1.75;font-size:.88rem}
+
+    /* ── OFFERS ── */
+    #offers{background:var(--dark)}
+    #offers h2.stitle{color:var(--gold)}
+    #offers .ssub{color:rgba(253,244,227,.55)}
+    .offers-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1.4rem}
+    .oc{border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .35s,box-shadow .35s}
+    .oc:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+    .oc-inner{padding:2.2rem 1.8rem;min-height:220px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
+    .oc1 .oc-inner{background:linear-gradient(140deg,#7B0D0D,#9C1515)}
+    .oc2 .oc-inner{background:linear-gradient(140deg,#3D1A00,#7A3E0D)}
+    .oc3 .oc-inner{background:linear-gradient(140deg,#0D2D00,#1E5E0A)}
+    .oc-glow{position:absolute;right:-30px;bottom:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.15) 0%,transparent 70%);pointer-events:none}
+    .o-badge{display:inline-block;background:var(--gold);color:var(--dark);font-size:.66rem;font-weight:700;padding:.2rem .7rem;border-radius:50px;letter-spacing:.06em;margin-bottom:.5rem}
+    .o-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;color:#fff;font-weight:700;margin-bottom:.3rem;line-height:1.2}
+    .o-desc{color:rgba(255,255,255,.6);font-size:.78rem;line-height:1.6}
+    .o-price{font-family:'Cinzel',serif;font-size:1.55rem;color:var(--gold-lt);font-weight:700;margin-top:.6rem}
+    .o-price s{font-size:.82rem;color:rgba(255,255,255,.35);font-family:'Lato',sans-serif;margin-left:.4rem}
+    .o-cta{display:inline-flex;align-items:center;gap:.4rem;color:var(--gold-lt);font-size:.76rem;font-weight:700;margin-top:.5rem;transition:gap .2s}
+    .oc:hover .o-cta{gap:.9rem}
+    .oc.tall .oc-inner{min-height:310px}
+
+    /* ── CATEGORIES + PRODUCTS ── */
+    #categories{background:var(--cream);padding:3.5rem 4rem 1rem}
+    .cat-scroller{display:flex;gap:.8rem;overflow-x:auto;padding-bottom:.5rem;scrollbar-width:none}
+    .cat-scroller::-webkit-scrollbar{display:none}
+    .chip{flex-shrink:0;padding:.45rem 1.2rem;border-radius:50px;cursor:pointer;font-size:.78rem;font-weight:700;letter-spacing:.07em;border:1.5px solid rgba(123,13,13,.2);color:var(--maroon);transition:.25s;background:var(--white)}
+    .chip:hover,.chip.active{background:var(--maroon);color:var(--gold);border-color:var(--maroon)}
+    #products{background:var(--cream2);padding-top:2.5rem}
+    .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.6rem}
+    .pcard{background:var(--white);border-radius:20px;overflow:hidden;cursor:pointer;position:relative;box-shadow:0 4px 20px rgba(123,13,13,.09);transition:transform .4s cubic-bezier(.23,1,.32,1),box-shadow .4s}
+    .pcard:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 22px 55px rgba(123,13,13,.18)}
+    .pimg{position:relative;height:185px;background:linear-gradient(135deg,var(--cream),var(--cream2));display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .pemoji{font-size:4.2rem;transition:transform .5s cubic-bezier(.23,1,.32,1),filter .3s}
+    .pcard:hover .pemoji{transform:scale(1.22) rotate(-8deg);filter:drop-shadow(0 8px 16px rgba(123,13,13,.3))}
+    .psheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.32) 50%,transparent 70%);transform:translateX(-120%);transition:transform .65s ease;pointer-events:none}
+    .pcard:hover .psheen{transform:translateX(120%)}
+    .ptag{position:absolute;top:10px;left:10px;background:var(--maroon);color:var(--gold);font-size:.6rem;font-weight:700;padding:.18rem .6rem;border-radius:50px;letter-spacing:.06em}
+    .pwish{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.82);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.88rem;transition:.2s;backdrop-filter:blur(4px)}
+    .pwish:hover{transform:scale(1.15)}
+    .pinfo{padding:.95rem 1rem}
+    .pname{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:700;color:var(--maroon);margin-bottom:.15rem}
+    .porigin{font-size:.65rem;color:#8a5252;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.45rem}
+    .prating{font-size:.76rem;color:var(--gold);margin-bottom:.5rem}
+    .pfoot{display:flex;align-items:center;justify-content:space-between}
+    .pprice{font-family:'Cinzel',serif;font-size:.9rem;color:var(--maroon);font-weight:700}
+    .pprice s{font-size:.7rem;color:#aaa;font-family:'Lato',sans-serif;margin-left:.3rem;text-decoration:line-through}
+    .padd{background:var(--maroon);color:var(--gold);border:none;cursor:pointer;width:30px;height:30px;border-radius:50%;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.25s;box-shadow:0 4px 10px var(--shadow)}
+    .padd:hover{background:var(--gold);color:var(--dark);transform:rotate(90deg) scale(1.1)}
+
+    /* ── PRODUCT POPUP ── */
+    .overlay{position:fixed;inset:0;background:rgba(10,2,2,.8);z-index:900;display:none;align-items:center;justify-content:center;backdrop-filter:blur(7px);padding:1rem}
+    .overlay.show{display:flex}
+    .popup{background:var(--white);border-radius:24px;max-width:680px;width:100%;position:relative;overflow:hidden;animation:popIn .4s cubic-bezier(.23,1,.32,1);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+    @keyframes popIn{from{opacity:0;transform:scale(.84) translateY(28px)}to{opacity:1;transform:none}}
+    .pcls{position:absolute;top:12px;right:14px;width:32px;height:32px;background:rgba(123,13,13,.1);border:none;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--maroon);transition:.2s;z-index:10}
+    .pcls:hover{background:var(--maroon);color:var(--gold)}
+    .popup-grid{display:grid;grid-template-columns:1fr 1.2fr}
+    .pleft{background:linear-gradient(160deg,var(--maroon),#5c0808);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 1.5rem;gap:.9rem;min-height:340px}
+    .pleft-emoji{font-size:5.5rem;animation:bob1 2.5s ease-in-out infinite}
+    .pleft-badge{background:var(--gold);color:var(--dark);font-size:.68rem;font-weight:700;padding:.25rem .8rem;border-radius:50px;letter-spacing:.08em}
+    .pright{padding:1.8rem 1.6rem;overflow-y:auto;max-height:450px}
+    .pop-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--maroon);margin-bottom:.15rem}
+    .pop-origin{font-size:.7rem;color:#8a5252;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem}
+    .pop-stars{font-size:.88rem;color:var(--gold);margin-bottom:.5rem}
+    .pop-desc{color:#5a3232;line-height:1.78;font-size:.85rem;margin-bottom:1rem}
+    .pop-dets{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1rem}
+    .pop-det{background:var(--cream);border-radius:10px;padding:.5rem .7rem}
+    .pop-det-l{font-size:.6rem;color:#8a5252;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.15rem}
+    .pop-det-v{font-size:.82rem;font-weight:700;color:var(--maroon)}
+    .pop-price-row{display:flex;align-items:baseline;gap:.6rem;margin-bottom:.9rem;flex-wrap:wrap}
+    .pop-price{font-family:'Cinzel',serif;font-size:1.5rem;color:var(--maroon);font-weight:700}
+    .pop-old{font-size:.85rem;color:#bbb;text-decoration:line-through}
+    .pop-save{font-size:.72rem;background:rgba(123,13,13,.1);color:var(--maroon);padding:.15rem .5rem;border-radius:50px;font-weight:700}
+    .pop-qty{display:flex;align-items:center;gap:.7rem;margin-bottom:.85rem}
+    .qbtn{width:30px;height:30px;border-radius:50%;background:var(--cream2);border:1.5px solid rgba(123,13,13,.2);cursor:pointer;font-size:1.05rem;display:flex;align-items:center;justify-content:center;color:var(--maroon);transition:.2s}
+    .qbtn:hover{background:var(--maroon);color:var(--gold)}
+    .qval{font-family:'Cinzel',serif;font-size:.92rem;color:var(--maroon);min-width:22px;text-align:center}
+    .pop-add-btn{width:100%;padding:.7rem;border-radius:50px;background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:var(--gold);font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.1em;border:none;cursor:pointer;font-weight:600;transition:.25s;box-shadow:0 6px 20px var(--shadow)}
+    .pop-add-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px var(--shadow)}
+    .pop-tags{display:flex;flex-wrap:wrap;gap:.33rem;margin-top:.75rem}
+    .ptag2{font-size:.63rem;padding:.16rem .5rem;border-radius:50px;background:var(--cream2);color:var(--maroon);font-weight:700;letter-spacing:.05em}
+
+    /* ── AUTH MODAL ── */
+    .auth-overlay{position:fixed;inset:0;background:rgba(10,2,2,.85);z-index:1100;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);padding:1rem}
+    .auth-overlay.show{display:flex}
+    .auth-box{background:var(--white);border-radius:24px;width:100%;max-width:440px;overflow:hidden;animation:popIn .4s cubic-bezier(.23,1,.32,1);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+    .auth-header{background:linear-gradient(135deg,var(--maroon),#5c0808);padding:2.2rem 2rem 1.5rem;text-align:center;position:relative}
+    .auth-header img{width:60px;height:60px;border-radius:50%;border:2.5px solid var(--gold);object-fit:cover;margin:0 auto .7rem}
+    .auth-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--gold);font-weight:700;margin-bottom:.2rem}
+    .auth-sub{font-size:.8rem;color:rgba(253,244,227,.65)}
+    .auth-close{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.1);border:none;color:rgba(253,244,227,.7);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+    .auth-close:hover{background:rgba(255,255,255,.2);color:#fff}
+    .auth-tabs{display:flex;border-bottom:2px solid var(--cream2)}
+    .auth-tab{flex:1;padding:.85rem;text-align:center;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.25s;color:#8a5252;background:none;border:none}
+    .auth-tab.active{color:var(--maroon);border-bottom:2.5px solid var(--maroon);margin-bottom:-2px}
+    .auth-body{padding:1.8rem 2rem}
+    .auth-form{display:flex;flex-direction:column;gap:.9rem}
+    .form-group{display:flex;flex-direction:column;gap:.35rem}
+    .form-group label{font-size:.68rem;color:var(--maroon);letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+    .form-group input{background:var(--cream);border:1.5px solid rgba(123,13,13,.15);border-radius:10px;padding:.65rem .95rem;color:var(--text);font-family:'Lato',sans-serif;font-size:.88rem;transition:border-color .25s,background .25s;outline:none}
+    .form-group input:focus{border-color:var(--maroon);background:var(--white)}
+    .form-group .input-hint{font-size:.68rem;color:#8a5252;margin-top:.15rem}
+    .auth-submit{background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:var(--gold);border:none;padding:.75rem;border-radius:50px;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer;font-weight:600;transition:.25s;box-shadow:0 6px 20px var(--shadow)}
+    .auth-submit:hover{transform:translateY(-2px);box-shadow:0 10px 28px var(--shadow)}
+    .auth-or{text-align:center;font-size:.75rem;color:#8a5252;position:relative;margin:.3rem 0}
+    .auth-or::before,.auth-or::after{content:'';position:absolute;top:50%;width:38%;height:1px;background:var(--cream2)}
+    .auth-or::before{left:0}
+    .auth-or::after{right:0}
+    .auth-err{background:rgba(123,13,13,.08);border:1px solid rgba(123,13,13,.2);border-radius:8px;padding:.55rem .8rem;font-size:.78rem;color:var(--maroon);display:none}
+    .auth-err.show{display:block}
+    .pass-wrap{position:relative}
+    .pass-wrap input{padding-right:2.5rem}
+    .pass-toggle{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:#8a5252}
+
+    /* ── CART SIDEBAR ── */
+    .cart-sidebar{position:fixed;top:0;right:-420px;width:420px;max-width:95vw;height:100vh;background:var(--white);z-index:1050;display:flex;flex-direction:column;box-shadow:-10px 0 50px rgba(0,0,0,.25);transition:right .4s cubic-bezier(.23,1,.32,1)}
+    .cart-sidebar.open{right:0}
+    .cart-backdrop{position:fixed;inset:0;background:rgba(10,2,2,.5);z-index:1040;display:none;backdrop-filter:blur(4px)}
+    .cart-backdrop.show{display:block}
+    .cart-header{background:linear-gradient(135deg,var(--maroon),#5c0808);padding:1.4rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+    .cart-header h3{font-family:'Cinzel',serif;color:var(--gold);font-size:.95rem;letter-spacing:.1em}
+    .cart-close-btn{background:rgba(255,255,255,.1);border:none;color:var(--gold);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+    .cart-close-btn:hover{background:rgba(255,255,255,.2)}
+    .cart-items{flex:1;overflow-y:auto;padding:1rem}
+    .cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:.8rem;color:#8a5252}
+    .cart-empty .ce-icon{font-size:3.5rem;opacity:.5}
+    .cart-empty p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--maroon)}
+    .cart-empty span{font-size:.82rem}
+    .cart-item{display:flex;align-items:center;gap:.9rem;padding:.85rem .6rem;border-bottom:1px solid var(--cream2)}
+    .ci-emoji{width:52px;height:52px;border-radius:12px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0}
+    .ci-info{flex:1;min-width:0}
+    .ci-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--maroon);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ci-weight{font-size:.68rem;color:#8a5252;letter-spacing:.08em}
+    .ci-price{font-family:'Cinzel',serif;font-size:.88rem;color:var(--maroon);font-weight:700;margin-top:.2rem}
+    .ci-controls{display:flex;align-items:center;gap:.45rem}
+    .ci-qbtn{width:26px;height:26px;border-radius:50%;background:var(--cream2);border:1.5px solid rgba(123,13,13,.15);cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;color:var(--maroon);transition:.2s}
+    .ci-qbtn:hover{background:var(--maroon);color:var(--gold)}
+    .ci-qty{font-family:'Cinzel',serif;font-size:.82rem;color:var(--maroon);min-width:18px;text-align:center}
+    .ci-del{background:none;border:none;cursor:pointer;color:#cc5555;font-size:.9rem;margin-left:.2rem;transition:.2s;padding:.2rem}
+    .ci-del:hover{color:var(--maroon)}
+    .cart-footer{padding:1.1rem 1.2rem;border-top:1.5px solid var(--cream2);background:var(--cream)}
+    .cart-summary{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}
+    .cart-summary span{font-size:.82rem;color:#5a3232}
+    .cart-summary strong{font-family:'Cinzel',serif;font-size:1rem;color:var(--maroon)}
+    .cart-free-ship{font-size:.73rem;color:var(--green);margin-bottom:.9rem;text-align:center}
+    .checkout-btn{width:100%;padding:.78rem;border-radius:50px;background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:var(--gold);font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.1em;border:none;cursor:pointer;font-weight:600;transition:.25s;box-shadow:0 6px 20px var(--shadow)}
+    .checkout-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px var(--shadow)}
+    .checkout-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+    /* ── CHECKOUT MODAL ── */
+    .checkout-overlay{position:fixed;inset:0;background:rgba(10,2,2,.85);z-index:1200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);padding:1rem}
+    .checkout-overlay.show{display:flex}
+    .checkout-box{background:var(--white);border-radius:24px;width:100%;max-width:520px;overflow:hidden;animation:popIn .4s cubic-bezier(.23,1,.32,1);box-shadow:0 30px 80px rgba(0,0,0,.6);max-height:90vh;overflow-y:auto}
+    .checkout-header{background:linear-gradient(135deg,var(--maroon),#5c0808);padding:1.6rem 2rem;display:flex;align-items:center;justify-content:space-between}
+    .checkout-header h3{font-family:'Cinzel',serif;color:var(--gold);font-size:1rem;letter-spacing:.1em}
+    .checkout-close{background:rgba(255,255,255,.1);border:none;color:var(--gold);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+    .checkout-close:hover{background:rgba(255,255,255,.2)}
+    .checkout-body{padding:1.8rem 2rem}
+    .co-section-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--maroon);margin-bottom:1rem}
+    .co-order-list{margin-bottom:1.2rem}
+    .co-item{display:flex;align-items:center;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--cream2);font-size:.83rem}
+    .co-item-name{color:var(--text)}
+    .co-item-price{font-weight:700;color:var(--maroon);font-family:'Cinzel',serif}
+    .co-total{display:flex;justify-content:space-between;padding:.8rem 0;margin-top:.4rem}
+    .co-total span{font-size:.82rem;color:#5a3232}
+    .co-total strong{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--maroon)}
+    .co-field{margin-bottom:.85rem}
+    .co-field label{font-size:.67rem;color:var(--maroon);letter-spacing:.12em;text-transform:uppercase;font-weight:700;display:block;margin-bottom:.35rem}
+    .co-field textarea,.co-field input,.co-field select{width:100%;background:var(--cream);border:1.5px solid rgba(123,13,13,.15);border-radius:10px;padding:.65rem .9rem;font-family:'Lato',sans-serif;font-size:.85rem;color:var(--text);outline:none;transition:border-color .25s}
+    .co-field textarea:focus,.co-field input:focus,.co-field select:focus{border-color:var(--maroon)}
+    .co-field textarea{resize:vertical;min-height:80px}
+    .pay-methods{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1.2rem}
+    .pay-opt{border:1.5px solid rgba(123,13,13,.18);border-radius:12px;padding:.7rem .9rem;cursor:pointer;transition:.25s;display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--maroon);background:var(--cream)}
+    .pay-opt.selected{border-color:var(--maroon);background:rgba(123,13,13,.07)}
+    .pay-opt .pm-icon{font-size:1.3rem}
+    .place-order-btn{width:100%;padding:.78rem;border-radius:50px;background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:var(--gold);font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.1em;border:none;cursor:pointer;font-weight:600;transition:.25s;box-shadow:0 6px 20px var(--shadow)}
+    .place-order-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px var(--shadow)}
+
+    /* ── ACCOUNT MODAL ── */
+    .acc-overlay{position:fixed;inset:0;background:rgba(10,2,2,.85);z-index:1100;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);padding:1rem}
+    .acc-overlay.show{display:flex}
+    .acc-box{background:var(--white);border-radius:24px;width:100%;max-width:700px;max-height:88vh;overflow:hidden;animation:popIn .4s cubic-bezier(.23,1,.32,1);box-shadow:0 30px 80px rgba(0,0,0,.6);display:flex;flex-direction:column}
+    .acc-header{background:linear-gradient(135deg,var(--maroon),#5c0808);padding:1.5rem 2rem;display:flex;align-items:center;gap:1rem}
+    .acc-avatar{width:56px;height:56px;border-radius:50%;background:rgba(201,162,39,.2);border:2.5px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--gold);font-family:'Cinzel',serif;flex-shrink:0}
+    .acc-header-info{flex:1}
+    .acc-header-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--gold);font-weight:700}
+    .acc-header-email{font-size:.75rem;color:rgba(253,244,227,.6);margin-top:.15rem}
+    .acc-close{background:rgba(255,255,255,.1);border:none;color:var(--gold);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+    .acc-close:hover{background:rgba(255,255,255,.2)}
+    .acc-tabs{display:flex;border-bottom:1.5px solid var(--cream2);background:var(--white);flex-shrink:0}
+    .acc-tab-btn{flex:1;padding:.8rem;text-align:center;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.25s;color:#8a5252;background:none;border:none;border-bottom:2.5px solid transparent}
+    .acc-tab-btn.active{color:var(--maroon);border-bottom-color:var(--maroon)}
+    .acc-content{flex:1;overflow-y:auto;padding:1.8rem 2rem}
+    .profile-form{display:flex;flex-direction:column;gap:.9rem}
+    .pf-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+    .pf-group{display:flex;flex-direction:column;gap:.35rem}
+    .pf-group label{font-size:.67rem;color:var(--maroon);letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+    .pf-group input,.pf-group textarea{background:var(--cream);border:1.5px solid rgba(123,13,13,.15);border-radius:10px;padding:.65rem .9rem;font-family:'Lato',sans-serif;font-size:.85rem;color:var(--text);outline:none;transition:border-color .25s}
+    .pf-group input:focus,.pf-group textarea:focus{border-color:var(--maroon)}
+    .pf-group textarea{resize:vertical;min-height:80px}
+    .save-profile-btn{background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:var(--gold);border:none;padding:.7rem 2rem;border-radius:50px;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.12em;cursor:pointer;font-weight:600;transition:.25s;align-self:flex-start;box-shadow:0 6px 20px var(--shadow)}
+    .save-profile-btn:hover{transform:translateY(-2px)}
+    .logout-btn{background:rgba(123,13,13,.08);border:1.5px solid rgba(123,13,13,.2);color:var(--maroon);padding:.65rem 1.8rem;border-radius:50px;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.1em;cursor:pointer;font-weight:600;transition:.25s;margin-top:.5rem;align-self:flex-start}
+    .logout-btn:hover{background:var(--maroon);color:var(--gold)}
+    /* Orders tab */
+    .order-card{background:var(--cream);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;border:1px solid rgba(123,13,13,.1)}
+    .order-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem}
+    .order-id{font-family:'Cinzel',serif;font-size:.78rem;color:var(--maroon);font-weight:700}
+    .order-date{font-size:.72rem;color:#8a5252}
+    .order-status{font-size:.68rem;font-weight:700;padding:.2rem .65rem;border-radius:50px;letter-spacing:.07em}
+    .status-confirmed{background:rgba(26,122,26,.12);color:var(--green)}
+    .status-processing{background:rgba(201,162,39,.12);color:#8a5210}
+    .status-delivered{background:rgba(26,122,26,.2);color:var(--green)}
+    .order-items-list{font-size:.8rem;color:#5a3232;margin-bottom:.7rem;line-height:1.7}
+    .order-bottom{display:flex;align-items:center;justify-content:space-between}
+    .order-total{font-family:'Cinzel',serif;font-size:.9rem;color:var(--maroon);font-weight:700}
+    .no-orders{text-align:center;padding:2.5rem;color:#8a5252}
+    .no-orders .no-icon{font-size:3rem;margin-bottom:.7rem;opacity:.4}
+
+    /* ── WHY / TESTIMONIALS / CONTACT ── */
+    #why{background:var(--maroon)}
+    #why h2.stitle{color:var(--gold)}
+    #why .ssub{color:rgba(253,244,227,.55)}
+    .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.3rem}
+    .wcard{background:rgba(255,255,255,.06);border:1px solid rgba(201,162,39,.18);border-radius:16px;padding:1.8rem 1.4rem;text-align:center;transition:transform .3s,background .3s}
+    .wcard:hover{transform:translateY(-7px);background:rgba(255,255,255,.1)}
+    .wicon{font-size:2.2rem;margin-bottom:.7rem;display:block}
+    .wtitle{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);font-weight:700;margin-bottom:.4rem}
+    .wtext{font-size:.78rem;color:rgba(253,244,227,.6);line-height:1.7}
+    #testimonials{background:var(--cream)}
+    .tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:1.4rem}
+    .tcard{background:var(--white);border-radius:16px;padding:1.6rem;border:1px solid rgba(123,13,13,.09);box-shadow:0 4px 20px rgba(123,13,13,.05);transition:transform .3s,box-shadow .3s}
+    .tcard:hover{transform:translateY(-5px);box-shadow:0 14px 42px rgba(123,13,13,.12)}
+    .tq{font-size:1.7rem;color:var(--gold);line-height:1;margin-bottom:.4rem}
+    .ttext{color:#5a3232;line-height:1.78;font-size:.85rem;margin-bottom:.9rem;font-style:italic}
+    .tauthor{display:flex;align-items:center;gap:.65rem}
+    .tavatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--maroon),var(--maroon2));display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--gold);font-family:'Cinzel',serif;font-weight:700;flex-shrink:0}
+    .tname{font-weight:700;font-size:.83rem;color:var(--maroon)}
+    .tloc{font-size:.68rem;color:#8a5252}
+    #contact{background:var(--dark)}
+    #contact h2.stitle{color:var(--gold)}
+    #contact .ssub{color:rgba(253,244,227,.55)}
+    .cgrid{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start}
+    .cinfo h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold);margin-bottom:1rem;font-weight:700}
+    .citem{display:flex;gap:.9rem;align-items:flex-start;margin-bottom:1.1rem}
+    .cico{width:40px;height:40px;border-radius:50%;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.25);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+    .ctxt strong{display:block;color:var(--gold-lt);font-size:.8rem;margin-bottom:.18rem}
+    .ctxt span{font-size:.78rem;color:rgba(253,244,227,.6);line-height:1.65}
+    .soc-row{display:flex;gap:.55rem;margin-top:1.4rem}
+    .socbtn{width:36px;height:36px;border-radius:50%;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.2);display:flex;align-items:center;justify-content:center;font-size:.82rem;color:var(--gold);transition:.2s}
+    .socbtn:hover{background:var(--gold);color:var(--dark)}
+    .cform{display:flex;flex-direction:column;gap:.85rem}
+    .crow{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+    .fg{display:flex;flex-direction:column;gap:.32rem}
+    .fg label{font-size:.68rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+    .fg input,.fg textarea,.fg select{background:rgba(255,255,255,.04);border:1.5px solid rgba(201,162,39,.2);border-radius:10px;padding:.62rem .9rem;color:var(--cream);font-family:'Lato',sans-serif;font-size:.83rem;outline:none;transition:border-color .25s,background .25s}
+    .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--gold);background:rgba(201,162,39,.04)}
+    .fg textarea{resize:vertical;min-height:90px}
+    .fg select option{background:#1A0505;color:var(--cream)}
+    .fsubmit{background:linear-gradient(135deg,var(--gold),#9A7510);color:var(--dark);border:none;padding:.72rem 2.2rem;border-radius:50px;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.12em;cursor:pointer;font-weight:600;transition:.25s;align-self:flex-start;box-shadow:0 6px 20px rgba(201,162,39,.4)}
+    .fsubmit:hover{transform:translateY(-3px)}
+
+    /* ── FOOTER ── */
+    footer{background:#0D0101;padding:3rem 4rem 1.5rem;border-top:1px solid rgba(201,162,39,.12)}
+    .fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+    .fbrand img{width:62px;height:62px;border-radius:50%;border:2px solid rgba(201,162,39,.35);object-fit:cover;margin-bottom:.7rem}
+    .fbrand p{color:rgba(253,244,227,.45);font-size:.78rem;line-height:1.7;max-width:220px}
+    .fcol h4{font-family:'Cinzel',serif;color:var(--gold);font-size:.75rem;letter-spacing:.16em;margin-bottom:.85rem;text-transform:uppercase}
+    .fcol ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+    .fcol ul li a{color:rgba(253,244,227,.45);font-size:.78rem;transition:color .2s}
+    .fcol ul li a:hover{color:var(--gold)}
+    .fbot{border-top:1px solid rgba(201,162,39,.1);padding-top:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+    .fbot p{color:rgba(253,244,227,.3);font-size:.72rem}
+    .fbot span{color:var(--gold)}
+
+    /* ── FLOATING ELEMENTS ── */
+    .scroll-top{position:fixed;bottom:2rem;left:2rem;z-index:600;width:40px;height:40px;border-radius:50%;background:rgba(26,5,5,.8);border:1.5px solid rgba(201,162,39,.3);color:var(--gold);font-size:1rem;display:none;align-items:center;justify-content:center;cursor:pointer;transition:.25s;backdrop-filter:blur(8px)}
+    .scroll-top.show{display:flex}
+    .scroll-top:hover{background:var(--maroon)}
+    .toast-wrap{position:fixed;bottom:2rem;right:2rem;z-index:2000;display:flex;flex-direction:column;gap:.5rem;align-items:flex-end}
+    .toast{background:var(--dark);color:var(--gold);padding:.6rem 1.1rem;border-radius:50px;font-size:.78rem;font-weight:700;letter-spacing:.06em;border:1px solid rgba(201,162,39,.3);transform:translateY(18px) scale(.95);opacity:0;transition:.35s;white-space:nowrap;pointer-events:none}
+    .toast.show{transform:translateY(0) scale(1);opacity:1}
+
+    /* ── SUCCESS SCREEN ── */
+    .success-overlay{position:fixed;inset:0;background:rgba(10,2,2,.88);z-index:1500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+    .success-overlay.show{display:flex}
+    .success-box{background:var(--white);border-radius:24px;max-width:420px;width:90%;padding:3rem 2.5rem;text-align:center;animation:popIn .45s cubic-bezier(.23,1,.32,1);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+    .success-icon{font-size:4rem;margin-bottom:1rem;animation:successPop .5s cubic-bezier(.23,1,.32,1) .2s both}
+    @keyframes successPop{from{transform:scale(0)}to{transform:scale(1)}}
+    .success-box h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--maroon);font-weight:700;margin-bottom:.5rem}
+    .success-box p{font-size:.85rem;color:#5a3232;line-height:1.7;margin-bottom:.5rem}
+    .success-id{font-family:'Cinzel',serif;font-size:.82rem;color:var(--maroon);background:var(--cream);padding:.4rem .9rem;border-radius:50px;display:inline-block;margin:.5rem 0 1.5rem}
+    .success-done{background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:var(--gold);border:none;padding:.72rem 2rem;border-radius:50px;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.1em;cursor:pointer;font-weight:600;box-shadow:0 6px 20px var(--shadow)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1100px){
+      nav{padding:.7rem 2rem}
+      nav.scrolled{padding:.5rem 2rem}
+      #hero{grid-template-columns:1fr;text-align:center;padding:4.5rem 2rem 3.5rem}
+      .hero-sub{margin:0 auto 2rem}
+      .hero-btns{justify-content:center}
+      .hero-stats{justify-content:center}
+      .hero-right{margin-top:2.5rem}
+      .hero-orb{width:270px;height:270px}
+      section{padding:4rem 2rem}
+      .offers-grid{grid-template-columns:1fr}
+      .cgrid{grid-template-columns:1fr}
+      .fgrid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .hero-orb{width:210px;height:210px}
+      .popup-grid{grid-template-columns:1fr}
+      .pleft{min-height:150px;padding:1.4rem;flex-direction:row;gap:1.2rem}
+      .pleft-emoji{font-size:3.5rem;animation:none}
+      .crow{grid-template-columns:1fr}
+      .pf-row{grid-template-columns:1fr}
+      .fgrid{grid-template-columns:1fr}
+      .pay-methods{grid-template-columns:1fr}
+      .cart-sidebar{width:100%;right:-100%}
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-spin">🌶</div>
+  <p class="loader-txt">SHRI SWAMI SAMARTH MASALE</p>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- SCROLL TOP -->
+<div class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobMenu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="#hero" onclick="closeMob()">Home</a>
+  <a href="#offers" onclick="closeMob()">Offers</a>
+  <a href="#products" onclick="closeMob()">Products</a>
+  <a href="#why" onclick="closeMob()">Why Us</a>
+  <a href="#testimonials" onclick="closeMob()">Reviews</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <img src="logo.jpeg" alt="Logo"/>
+    <div class="nav-brand">SHRI SWAMI SAMARTH<span>MASALE • Since 1985</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#offers">Offers</a>
+    <a href="#products">Products</a>
+    <a href="#why">Why Us</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-cart-btn" onclick="openCart()">
+      🛒 Cart <span class="nav-cart-badge" id="navCartBadge">0</span>
+    </button>
+    <button class="nav-user-btn" id="navUserBtn" onclick="openAccount()" style="display:none">👤 <span id="navUserName">Account</span></button>
+    <button class="nav-login-btn" id="navLoginBtn" onclick="openAuth()">Login / Sign Up</button>
+  </div>
+  <div class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- MARQUEE -->
+<div id="marquee-bar">
+  <div class="marquee-track">
+    <span>🌶 Premium Quality Spices</span><span class="dot"> ✦ </span><span>🌿 100% Natural & Pure</span><span class="dot"> ✦ </span><span>🇮🇳 Proudly Made in India</span><span class="dot"> ✦ </span><span>📦 Free Delivery on Orders ₹499+</span><span class="dot"> ✦ </span><span>⭐ Trusted Since 1985</span><span class="dot"> ✦ </span><span>🎁 Festive Gift Packs Available</span><span class="dot"> ✦ </span>
+    <span>🌶 Premium Quality Spices</span><span class="dot"> ✦ </span><span>🌿 100% Natural & Pure</span><span class="dot"> ✦ </span><span>🇮🇳 Proudly Made in India</span><span class="dot"> ✦ </span><span>📦 Free Delivery on Orders ₹499+</span><span class="dot"> ✦ </span><span>⭐ Trusted Since 1985</span><span class="dot"> ✦ </span><span>🎁 Festive Gift Packs Available</span><span class="dot"> ✦ </span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-mandala">
+    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="150" cy="150" r="140" fill="none" stroke="#C9A227" stroke-width=".7"/><circle cx="150" cy="150" r="110" fill="none" stroke="#C9A227" stroke-width=".5"/><circle cx="150" cy="150" r="80" fill="none" stroke="#C9A227" stroke-width=".5"/><circle cx="150" cy="150" r="50" fill="none" stroke="#C9A227" stroke-width=".5"/><line x1="10" y1="150" x2="290" y2="150" stroke="#C9A227" stroke-width=".4"/><line x1="150" y1="10" x2="150" y2="290" stroke="#C9A227" stroke-width=".4"/><line x1="51" y1="51" x2="249" y2="249" stroke="#C9A227" stroke-width=".4"/><line x1="249" y1="51" x2="51" y2="249" stroke="#C9A227" stroke-width=".4"/>
+    </svg>
+  </div>
+  <div class="hero-particles">
+    <span style="left:12%;top:75%;--d:4.2s;--dl:0s"></span><span style="left:22%;top:82%;--d:5.1s;--dl:.7s"></span><span style="left:35%;top:78%;--d:3.7s;--dl:1.3s"></span><span style="left:60%;top:80%;--d:4.8s;--dl:.4s"></span><span style="left:72%;top:76%;--d:3.9s;--dl:2s"></span><span style="left:82%;top:83%;--d:5.3s;--dl:1s"></span>
+  </div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">✦ Premium Indian Spices Since 1985 ✦</div>
+    <h1 class="hero-title">The <em>Soul</em> of Every<br/>Authentic Indian<br/>Kitchen</h1>
+    <p class="hero-sub">Shri Swami Samarth Masale brings you the finest handpicked spices from across India — pure, aromatic, and bursting with heritage. Experience the difference of truly authentic masalas.</p>
+    <div class="hero-btns">
+      <button class="btn-gold" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">🛒 Explore Products</button>
+      <button class="btn-outline" onclick="document.getElementById('offers').scrollIntoView({behavior:'smooth'})">🎁 Today's Deals</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="n">38+</div><div class="l">Spice Varieties</div></div>
+      <div class="stat"><div class="n">40K+</div><div class="l">Customers</div></div>
+      <div class="stat"><div class="n">38 Yrs</div><div class="l">of Trust</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-orb">
+      <div class="orb-ring r1"></div><div class="orb-ring r2"></div>
+      <img src="logo.jpeg" alt="Logo" class="orb-img"/>
+      <div class="spice-float sf1">🌶</div><div class="spice-float sf2">🫙</div><div class="spice-float sf3">🌿</div><div class="spice-float sf4">⭐</div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERS -->
+<section id="offers">
+  <div class="stag"><span>Special Deals</span></div>
+  <h2 class="stitle">Today's Best Offers</h2>
+  <p class="ssub">Handpicked deals to bring the richest flavors to your kitchen at unbeatable prices.</p>
+  <div class="offers-grid">
+    <div class="oc oc1 tall"><div class="oc-inner"><div class="oc-glow"></div><div><div class="o-badge">🔥 Bestseller Combo</div><div class="o-title">Royal 5-Masala Combo Pack</div><p class="o-desc">Garam Masala, Turmeric, Red Chili, Coriander & Cumin — bundled at a special price. The complete Indian kitchen starter kit.</p></div><div><div class="o-price">₹399 <s>₹599</s></div><div style="font-size:.7rem;color:rgba(255,255,255,.45);margin-bottom:.4rem">Save ₹200 — Limited Time</div><a href="#products" class="o-cta">Shop This Deal →</a></div></div></div>
+    <div class="oc oc2"><div class="oc-inner"><div class="oc-glow"></div><div class="o-badge">🎁 Festive Special</div><div class="o-title">Premium Gift Box</div><p class="o-desc">Beautifully packed spice gift sets for Diwali, weddings, and special occasions.</p><div class="o-price">₹699</div><a href="#contact" class="o-cta">Order Now →</a></div></div>
+    <div class="oc oc3"><div class="oc-inner"><div class="oc-glow"></div><div class="o-badge">📦 Bulk Orders</div><div class="o-title">Business Pack</div><p class="o-desc">Hotels & restaurants — get wholesale rates on bulk orders of any variety with priority dispatch.</p><div style="font-size:.82rem;color:rgba(255,255,255,.65);margin-top:.5rem">Starting from ₹1,500</div><a href="#contact" class="o-cta">Get a Quote →</a></div></div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories" style="padding:3.5rem 4rem 1rem">
+  <div class="stag"><span>Browse By Type</span></div>
+  <h2 class="stitle">Shop by Category</h2>
+  <div class="cat-scroller" style="margin-top:1.3rem">
+    <div class="chip active" onclick="filterProds('all',this)">All Spices</div>
+    <div class="chip" onclick="filterProds('whole',this)">Whole Spices</div>
+    <div class="chip" onclick="filterProds('powder',this)">Spice Powders</div>
+    <div class="chip" onclick="filterProds('blend',this)">Masala Blends</div>
+    <div class="chip" onclick="filterProds('seed',this)">Seeds & Herbs</div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" style="padding-top:2.5rem">
+  <div class="pgrid" id="pgrid"></div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="stag"><span>Our Promise</span></div>
+  <h2 class="stitle">Why Choose Samarth Masale?</h2>
+  <p class="ssub">Four decades of dedication to bringing the most authentic, pure, and aromatic spices to your kitchen.</p>
+  <div class="why-grid">
+    <div class="wcard"><span class="wicon">🌿</span><div class="wtitle">100% Natural & Pure</div><p class="wtext">No artificial colors, preservatives, or additives. Just pure spices the way nature intended.</p></div>
+    <div class="wcard"><span class="wicon">🏆</span><div class="wtitle">38 Years of Legacy</div><p class="wtext">Since 1985, generations of families have trusted us for the most authentic Indian spice experience.</p></div>
+    <div class="wcard"><span class="wicon">🔬</span><div class="wtitle">Lab Tested Quality</div><p class="wtext">Every batch is tested for purity, aroma, and quality before it reaches your doorstep.</p></div>
+    <div class="wcard"><span class="wicon">📦</span><div class="wtitle">Hygienic Packaging</div><p class="wtext">Sealed, airtight packaging that locks in freshness and preserves full aroma for months.</p></div>
+    <div class="wcard"><span class="wicon">🌾</span><div class="wtitle">Farm Sourced</div><p class="wtext">Direct partnerships with farmers across Maharashtra, Rajasthan, Kerala, and Andhra Pradesh.</p></div>
+    <div class="wcard"><span class="wicon">💚</span><div class="wtitle">No Preservatives</div><p class="wtext">Clean, honest spices with zero hidden chemicals. What you see is what you taste.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="stag"><span>Customer Love</span></div>
+  <h2 class="stitle">What Our Customers Say</h2>
+  <p class="ssub" style="color:#5a3232">Real reviews from families who trust Shri Swami Samarth Masale every single day.</p>
+  <div class="tgrid">
+    <div class="tcard"><div class="tq">"</div><p class="ttext">The Garam Masala is absolutely divine! My biryani has never smelled so good. My family keeps asking what changed — it's the spices!</p><div class="tauthor"><div class="tavatar">प</div><div><div class="tname">Priya Joshi</div><div class="tloc">Pune ⭐⭐⭐⭐⭐</div></div></div></div>
+    <div class="tcard"><div class="tq">"</div><p class="ttext">We've used Samarth Masale at our restaurant for 6 years. The consistency, the aroma — nothing comes close to this quality at this price.</p><div class="tauthor"><div class="tavatar">र</div><div><div class="tname">Rajesh Kulkarni</div><div class="tloc">Nashik ⭐⭐⭐⭐⭐</div></div></div></div>
+    <div class="tcard"><div class="tq">"</div><p class="ttext">Ordered the Gift Box Set for Diwali and everyone loved it! Beautiful packaging, wonderful fragrance. Will order again for every festival.</p><div class="tauthor"><div class="tavatar">स</div><div><div class="tname">Sunita Deshmukh</div><div class="tloc">Aurangabad ⭐⭐⭐⭐⭐</div></div></div></div>
+    <div class="tcard"><div class="tq">"</div><p class="ttext">Their Kolhapuri Masala is the real deal — authentic, fiery, so aromatic. Samarth Masale stands apart from every other brand. Highly recommend!</p><div class="tauthor"><div class="tavatar">अ</div><div><div class="tname">Amit Pawar</div><div class="tloc">Kolhapur ⭐⭐⭐⭐⭐</div></div></div></div>
+    <div class="tcard"><div class="tq">"</div><p class="ttext">The Turmeric powder has such vibrant color and earthy flavor. You can tell it's pure — a little goes a long way. Worth every rupee!</p><div class="tauthor"><div class="tavatar">म</div><div><div class="tname">Meera Sathe</div><div class="tloc">Nagpur ⭐⭐⭐⭐⭐</div></div></div></div>
+    <div class="tcard"><div class="tq">"</div><p class="ttext">Ordered bulk for catering and the team was super helpful. On-time delivery, intact packaging, excellent quality — as always!</p><div class="tauthor"><div class="tavatar">व</div><div><div class="tname">Vinod Sharma</div><div class="tloc">Mumbai ⭐⭐⭐⭐⭐</div></div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="stag"><span>Get In Touch</span></div>
+  <h2 class="stitle">Contact Us</h2>
+  <p class="ssub">Have a question or want to place a bulk order? We'd love to hear from you!</p>
+  <div class="cgrid">
+    <div class="cinfo">
+      <h3>Shri Swami Samarth Masale</h3>
+      <div class="citem"><div class="cico">📍</div><div class="ctxt"><strong>Our Store</strong><span>Near Swami Samarth Temple, Akkalkot,<br/>Solapur District, Maharashtra – 413216</span></div></div>
+      <div class="citem"><div class="cico">📞</div><div class="ctxt"><strong>Phone / WhatsApp</strong><span>+91 98765 43210<br/>+91 91234 56789</span></div></div>
+      <div class="citem"><div class="cico">✉️</div><div class="ctxt"><strong>Email</strong><span>info@samarthmasale.in<br/>orders@samarthmasale.in</span></div></div>
+      <div class="citem"><div class="cico">🕐</div><div class="ctxt"><strong>Business Hours</strong><span>Mon–Sat: 9:00 AM – 8:00 PM<br/>Sunday: 10:00 AM – 4:00 PM</span></div></div>
+      <div class="soc-row"><a class="socbtn" href="#">f</a><a class="socbtn" href="#">📷</a><a class="socbtn" href="#">▶</a><a class="socbtn" href="#">💬</a></div>
+    </div>
+    <form class="cform" onsubmit="submitContact(event)">
+      <div class="crow"><div class="fg"><label>Your Name</label><input type="text" placeholder="Ramesh Sharma" required/></div><div class="fg"><label>Phone</label><input type="tel" placeholder="+91 98765 43210" required/></div></div>
+      <div class="fg"><label>Email</label><input type="email" placeholder="you@example.com"/></div>
+      <div class="fg"><label>Enquiry Type</label><select><option>General Enquiry</option><option>Bulk / Wholesale Order</option><option>Gift Pack Order</option><option>Product Information</option><option>Complaint / Feedback</option></select></div>
+      <div class="fg"><label>Message</label><textarea placeholder="Tell us how we can help you..."></textarea></div>
+      <button type="submit" class="fsubmit">✦ Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fgrid">
+    <div class="fbrand"><img src="logo.jpeg" alt="Logo"/><p>Bringing authentic Indian spice heritage to your kitchen since 1985. Pure. Natural. Trusted by generations.</p><div class="soc-row"><a class="socbtn" href="#">f</a><a class="socbtn" href="#">📷</a><a class="socbtn" href="#">▶</a><a class="socbtn" href="#">💬</a></div></div>
+    <div class="fcol"><h4>Quick Links</h4><ul><li><a href="#hero">Home</a></li><li><a href="#offers">Offers</a></li><li><a href="#products">Products</a></li><li><a href="#why">About Us</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="fcol"><h4>Products</h4><ul><li><a href="#products">Whole Spices</a></li><li><a href="#products">Spice Powders</a></li><li><a href="#products">Masala Blends</a></li><li><a href="#products">Seeds & Herbs</a></li><li><a href="#products">Gift Packs</a></li></ul></div>
+    <div class="fcol"><h4>Support</h4><ul><li><a href="#">Track Order</a></li><li><a href="#">Return Policy</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Shipping Info</a></li><li><a href="#">FAQ</a></li></ul></div>
+  </div>
+  <div class="fbot"><p>© 2026 <span>Shri Swami Samarth Masale</span>. All rights reserved.</p><p>Made with ❤️ in Maharashtra, India 🇮🇳</p></div>
+</footer>
+
+<!-- PRODUCT POPUP -->
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="popup">
+    <button class="pcls" onclick="closePopup()">✕</button>
+    <div class="popup-grid">
+      <div class="pleft"><div class="pleft-emoji" id="pEmoji"></div><div class="pleft-badge" id="pBadge"></div></div>
+      <div class="pright">
+        <div class="pop-name" id="pName"></div>
+        <div class="pop-origin" id="pOrigin"></div>
+        <div class="pop-stars" id="pStars"></div>
+        <p class="pop-desc" id="pDesc"></p>
+        <div class="pop-dets" id="pDets"></div>
+        <div class="pop-price-row"><div class="pop-price" id="pPrice"></div><div class="pop-old" id="pOld"></div><div class="pop-save" id="pSave"></div></div>
+        <div class="pop-qty"><button class="qbtn" onclick="chgQty(-1)">−</button><div class="qval" id="qtyVal">1</div><button class="qbtn" onclick="chgQty(1)">+</button><span style="font-size:.73rem;color:#8a5252;margin-left:.3rem" id="pWt"></span></div>
+        <button class="pop-add-btn" onclick="addFromPopup()">🛒 Add to Cart</button>
+        <div class="pop-tags" id="pTags"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay" onclick="closeAuthOverlay(event)">
+  <div class="auth-box">
+    <div class="auth-header">
+      <img src="logo.jpeg" alt="Logo"/>
+      <div class="auth-title" id="authTitle">Welcome Back</div>
+      <div class="auth-sub" id="authSub">Sign in to your account to continue</div>
+      <button class="auth-close" onclick="closeAuth()">✕</button>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="loginTab" onclick="switchAuthTab('login')">Login</button>
+      <button class="auth-tab" id="registerTab" onclick="switchAuthTab('register')">Sign Up</button>
+    </div>
+    <div class="auth-body">
+      <div class="auth-err" id="authErr"></div>
+      <!-- LOGIN FORM -->
+      <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group"><label>Email Address</label><input type="email" id="loginEmail" placeholder="you@example.com" required/></div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="pass-wrap"><input type="password" id="loginPass" placeholder="Enter your password" required/><button type="button" class="pass-toggle" onclick="togglePass('loginPass',this)">👁</button></div>
+        </div>
+        <button type="submit" class="auth-submit" id="loginBtn">🌶 Sign In</button>
+        <div class="auth-or">or</div>
+        <button type="button" class="btn-outline" style="width:100%;justify-content:center" onclick="switchAuthTab('register')">Create New Account</button>
+      </form>
+      <!-- REGISTER FORM -->
+      <form class="auth-form" id="registerForm" style="display:none" onsubmit="handleRegister(event)">
+        <div class="form-group"><label>Full Name</label><input type="text" id="regName" placeholder="Ramesh Sharma" required/></div>
+        <div class="form-group"><label>Email Address</label><input type="email" id="regEmail" placeholder="you@example.com" required/></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" id="regPhone" placeholder="+91 98765 43210"/></div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="pass-wrap"><input type="password" id="regPass" placeholder="Min. 6 characters" required minlength="6"/><button type="button" class="pass-toggle" onclick="togglePass('regPass',this)">👁</button></div>
+          <div class="input-hint">Use at least 6 characters</div>
+        </div>
+        <button type="submit" class="auth-submit" id="regBtn">✦ Create Account</button>
+        <div class="auth-or">or</div>
+        <button type="button" class="btn-outline" style="width:100%;justify-content:center" onclick="switchAuthTab('login')">Already have an account?</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>🛒 Your Cart <span id="cartCountLabel" style="font-size:.72rem;opacity:.7"></span></h3>
+    <button class="cart-close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItemsContainer"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-summary"><span>Subtotal</span><strong id="cartSubtotal">₹0</strong></div>
+    <div class="cart-summary"><span>Delivery</span><strong id="cartDelivery">₹50</strong></div>
+    <div class="cart-summary" style="border-top:1px solid var(--cream2);padding-top:.4rem;margin-top:.2rem"><span style="font-weight:700;color:var(--maroon)">Total</span><strong id="cartTotal" style="font-size:1.1rem">₹0</strong></div>
+    <div class="cart-free-ship" id="cartFreeShip"></div>
+    <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-overlay" id="checkoutOverlay" onclick="closeCheckoutOverlay(event)">
+  <div class="checkout-box">
+    <div class="checkout-header">
+      <h3>✦ Checkout</h3>
+      <button class="checkout-close" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="checkout-body">
+      <div class="co-section-title">Order Summary</div>
+      <div class="co-order-list" id="coOrderList"></div>
+      <div class="co-total"><span>Total (incl. delivery)</span><strong id="coTotal">₹0</strong></div>
+      <hr style="border:none;border-top:1px solid var(--cream2);margin:1.2rem 0"/>
+      <div class="co-section-title">Delivery Address</div>
+      <div class="co-field"><label>Full Address</label><textarea id="coAddress" placeholder="House No., Street, Area, City, PIN Code" required></textarea></div>
+      <div class="co-field"><label>Phone for Delivery</label><input type="tel" id="coPhone" placeholder="+91 98765 43210" required/></div>
+      <hr style="border:none;border-top:1px solid var(--cream2);margin:1.2rem 0"/>
+      <div class="co-section-title">Payment Method</div>
+      <div class="pay-methods" id="payMethods">
+        <div class="pay-opt selected" onclick="selectPay(this,'COD')"><span class="pm-icon">💵</span><div><div style="font-weight:700;font-size:.82rem">Cash on Delivery</div><div style="font-size:.7rem;color:#8a5252">Pay when delivered</div></div></div>
+        <div class="pay-opt" onclick="selectPay(this,'UPI')"><span class="pm-icon">📱</span><div><div style="font-weight:700;font-size:.82rem">UPI / QR Code</div><div style="font-size:.7rem;color:#8a5252">Instant payment</div></div></div>
+        <div class="pay-opt" onclick="selectPay(this,'Card')"><span class="pm-icon">💳</span><div><div style="font-weight:700;font-size:.82rem">Credit / Debit Card</div><div style="font-size:.7rem;color:#8a5252">Visa, Mastercard</div></div></div>
+        <div class="pay-opt" onclick="selectPay(this,'NetBanking')"><span class="pm-icon">🏦</span><div><div style="font-weight:700;font-size:.82rem">Net Banking</div><div style="font-size:.7rem;color:#8a5252">All major banks</div></div></div>
+      </div>
+      <button class="place-order-btn" onclick="placeOrder()" id="placeOrderBtn">✦ Place Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- ACCOUNT MODAL -->
+<div class="acc-overlay" id="accOverlay" onclick="closeAccOverlay(event)">
+  <div class="acc-box">
+    <div class="acc-header">
+      <div class="acc-avatar" id="accAvatar">👤</div>
+      <div class="acc-header-info">
+        <div class="acc-header-name" id="accName">My Account</div>
+        <div class="acc-header-email" id="accEmail"></div>
+      </div>
+      <button class="acc-close" onclick="closeAccount()">✕</button>
+    </div>
+    <div class="acc-tabs">
+      <button class="acc-tab-btn active" onclick="switchAccTab('profile',this)">👤 Profile</button>
+      <button class="acc-tab-btn" onclick="switchAccTab('orders',this)">📦 My Orders</button>
+      <button class="acc-tab-btn" onclick="switchAccTab('settings',this)">⚙️ Settings</button>
+    </div>
+    <div class="acc-content" id="accContent"></div>
+  </div>
+</div>
+
+<!-- ORDER SUCCESS -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon">🎉</div>
+    <h3>Order Placed!</h3>
+    <p>Thank you for choosing Shri Swami Samarth Masale! Your order has been confirmed.</p>
+    <div class="success-id" id="successOrderId"></div>
+    <p style="font-size:.78rem;color:#8a5252">We'll contact you shortly to confirm delivery details.</p>
+    <br/>
+    <button class="success-done" onclick="closeSuccess()">Continue Shopping</button>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  CONFIG — change this to your server URL
+// ══════════════════════════════════════════════
+const API = 'http://localhost:3000/api';
+
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let state = {
+  user: null,
+  token: localStorage.getItem('sm_token') || null,
+  cart: [],        // [{productId,name,emoji,price,weight,qty}]
+  products: [],
+  curProd: null,
+  curQty: 1,
+  payMethod: 'COD',
+  accTab: 'profile',
+  orders: [],
+};
+
+// ══════════════════════════════════════════════
+//  API HELPERS
+// ══════════════════════════════════════════════
+async function api(path, method='GET', body=null) {
+  const opts = { method, headers: { 'Content-Type':'application/json' } };
+  if (state.token) opts.headers['Authorization'] = 'Bearer ' + state.token;
+  if (body) opts.body = JSON.stringify(body);
+  try {
+    const r = await fetch(API + path, opts);
+    return await r.json();
+  } catch(e) {
+    return { error: 'Cannot connect to server. Make sure the backend is running.' };
+  }
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+window.addEventListener('load', async () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hide'), 1200);
+  await loadProducts();
+  if (state.token) await restoreSession();
+  initCursor();
+});
+
+async function restoreSession() {
+  const res = await api('/auth/profile');
+  if (res.id) {
+    state.user = res;
+    updateNavUser();
+    await syncCart();
+  } else {
+    state.token = null;
+    localStorage.removeItem('sm_token');
+  }
+}
+
+async function loadProducts(category='all') {
+  const q = category === 'all' ? '' : `?category=${category}`;
+  const res = await api('/products' + q);
+  if (Array.isArray(res)) {
+    state.products = res;
+    renderProducts(res);
+  }
+}
+
+// ══════════════════════════════════════════════
+//  PRODUCTS
+// ══════════════════════════════════════════════
+function renderProducts(prods) {
+  const g = document.getElementById('pgrid');
+  g.innerHTML = '';
+  prods.forEach((p,i) => {
+    const d = document.createElement('div');
+    d.className = 'pcard';
+    d.style.cssText = `opacity:0;transform:translateY(28px);transition:opacity .5s ${i*.07}s ease,transform .5s ${i*.07}s ease,box-shadow .4s`;
+    d.innerHTML = `
+      <div class="pimg">
+        <div class="psheen"></div>
+        <div class="pemoji">${p.emoji}</div>
+        <div class="ptag">${p.badge}</div>
+        <button class="pwish" onclick="event.stopPropagation();toggleWish(this)">🤍</button>
+      </div>
+      <div class="pinfo">
+        <div class="pname">${p.name}</div>
+        <div class="porigin">📍 ${p.origin}</div>
+        <div class="prating">⭐ 4.8 (reviews)</div>
+        <div class="pfoot">
+          <div class="pprice">₹${p.price}<s>₹${p.old}</s></div>
+          <button class="padd" onclick="event.stopPropagation();quickAddProd(${p.id})">+</button>
+        </div>
+      </div>`;
+    d.addEventListener('click', () => openProductPopup(p));
+    g.appendChild(d);
+    setTimeout(() => { d.style.opacity='1'; d.style.transform='translateY(0)'; }, 50 + i*70);
+  });
+}
+
+function filterProds(cat, el) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  loadProducts(cat);
+}
+
+// ══════════════════════════════════════════════
+//  PRODUCT POPUP
+// ══════════════════════════════════════════════
+function openProductPopup(p) {
+  state.curProd = p; state.curQty = 1;
+  document.getElementById('qtyVal').textContent = '1';
+  document.getElementById('pEmoji').textContent = p.emoji;
+  document.getElementById('pBadge').textContent = p.badge;
+  document.getElementById('pName').textContent = p.name;
+  document.getElementById('pOrigin').textContent = '📍 '+p.origin;
+  document.getElementById('pStars').textContent = '⭐ 4.8 (reviews)';
+  document.getElementById('pDesc').textContent = p.desc;
+  document.getElementById('pPrice').textContent = '₹'+p.price;
+  document.getElementById('pOld').textContent = '₹'+p.old;
+  document.getElementById('pSave').textContent = Math.round((1-p.price/p.old)*100)+'% OFF';
+  document.getElementById('pWt').textContent = p.weight;
+  document.getElementById('pDets').innerHTML = Object.entries(p.details||{}).map(([k,v]) =>
+    `<div class="pop-det"><div class="pop-det-l">${k}</div><div class="pop-det-v">${v}</div></div>`).join('');
+  document.getElementById('pTags').innerHTML = (p.tags||[]).map(t => `<div class="ptag2">✦ ${t}</div>`).join('');
+  document.getElementById('overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeOverlay(e) { if(e.target===document.getElementById('overlay')) closePopup(); }
+function closePopup() { document.getElementById('overlay').classList.remove('show'); document.body.style.overflow=''; }
+function chgQty(d) { state.curQty = Math.max(1, state.curQty+d); document.getElementById('qtyVal').textContent = state.curQty; }
+async function addFromPopup() {
+  await addToCart(state.curProd.id, state.curQty);
+  closePopup();
+}
+async function quickAddProd(id) { await addToCart(id, 1); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') { closePopup(); closeAuth(); closeCart(); closeAccount(); closeCheckout(); } });
+
+// ══════════════════════════════════════════════
+//  CART
+// ══════════════════════════════════════════════
+async function addToCart(productId, qty=1) {
+  if (state.token) {
+    const res = await api('/cart', 'POST', {productId, qty});
+    if (!res.error) { state.cart = res; updateCartUI(); toast(`🌶 Added to cart!`); return; }
+  }
+  // Local cart fallback
+  const prod = state.products.find(p => p.id === productId);
+  if (!prod) return;
+  const ex = state.cart.find(i => i.productId === productId);
+  if (ex) ex.qty += qty;
+  else state.cart.push({productId, name:prod.name, emoji:prod.emoji, price:prod.price, weight:prod.weight, qty});
+  updateCartUI();
+  toast(`🌶 ${prod.name} added to cart!`);
+}
+
+async function syncCart() {
+  if (!state.token) return;
+  const res = await api('/cart');
+  if (Array.isArray(res)) { state.cart = res; updateCartUI(); }
+}
+
+async function removeFromCart(productId) {
+  if (state.token) {
+    const res = await api('/cart/'+productId, 'DELETE');
+    if (Array.isArray(res)) { state.cart = res; updateCartUI(); return; }
+  }
+  state.cart = state.cart.filter(i => i.productId !== productId);
+  updateCartUI();
+}
+
+async function updateCartQty(productId, qty) {
+  if (qty <= 0) { removeFromCart(productId); return; }
+  if (state.token) {
+    const res = await api('/cart/'+productId, 'PUT', {qty});
+    if (Array.isArray(res)) { state.cart = res; updateCartUI(); return; }
+  }
+  const item = state.cart.find(i => i.productId === productId);
+  if (item) item.qty = qty;
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const total = state.cart.reduce((s,i) => s+i.qty, 0);
+  document.getElementById('navCartBadge').textContent = total;
+  document.getElementById('cartCountLabel').textContent = total > 0 ? `(${total} item${total>1?'s':''})` : '';
+  renderCartSidebar();
+}
+
+function renderCartSidebar() {
+  const c = document.getElementById('cartItemsContainer');
+  const f = document.getElementById('cartFooter');
+  if (!state.cart.length) {
+    c.innerHTML = `<div class="cart-empty"><div class="ce-icon">🛒</div><p>Your cart is empty</p><span>Add some delicious spices!</span><br/><button class="btn-gold" style="margin-top:1rem;font-size:.8rem" onclick="closeCart()">Browse Products</button></div>`;
+    f.style.display = 'none'; return;
+  }
+  c.innerHTML = state.cart.map(item => `
+    <div class="cart-item">
+      <div class="ci-emoji">${item.emoji}</div>
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-weight">${item.weight}</div>
+        <div class="ci-price">₹${item.price} × ${item.qty} = ₹${item.price*item.qty}</div>
+      </div>
+      <div class="ci-controls">
+        <button class="ci-qbtn" onclick="updateCartQty(${item.productId},${item.qty-1})">−</button>
+        <div class="ci-qty">${item.qty}</div>
+        <button class="ci-qbtn" onclick="updateCartQty(${item.productId},${item.qty+1})">+</button>
+        <button class="ci-del" onclick="removeFromCart(${item.productId})">🗑</button>
+      </div>
+    </div>`).join('');
+  const subtotal = state.cart.reduce((s,i) => s+i.price*i.qty, 0);
+  const delivery = subtotal >= 499 ? 0 : 50;
+  const total = subtotal + delivery;
+  document.getElementById('cartSubtotal').textContent = '₹'+subtotal;
+  document.getElementById('cartDelivery').textContent = delivery === 0 ? 'FREE 🎉' : '₹'+delivery;
+  document.getElementById('cartTotal').textContent = '₹'+total;
+  document.getElementById('cartFreeShip').textContent = delivery > 0 ? `Add ₹${499-subtotal} more for FREE delivery!` : '✅ You qualify for FREE delivery!';
+  f.style.display = 'block';
+}
+
+function openCart() { document.getElementById('cartSidebar').classList.add('open'); document.getElementById('cartBackdrop').classList.add('show'); renderCartSidebar(); }
+function closeCart() { document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('cartBackdrop').classList.remove('show'); }
+
+// ══════════════════════════════════════════════
+//  CHECKOUT
+// ══════════════════════════════════════════════
+function openCheckout() {
+  if (!state.token) { closeCart(); openAuth(); toast('Please login to checkout'); return; }
+  closeCart();
+  // Fill order summary
+  const subtotal = state.cart.reduce((s,i) => s+i.price*i.qty, 0);
+  const delivery = subtotal >= 499 ? 0 : 50;
+  document.getElementById('coOrderList').innerHTML = state.cart.map(i =>
+    `<div class="co-item"><span class="co-item-name">${i.emoji} ${i.name} × ${i.qty}</span><span class="co-item-price">₹${i.price*i.qty}</span></div>`).join('');
+  document.getElementById('coTotal').textContent = '₹'+(subtotal+delivery);
+  // Pre-fill address
+  if (state.user?.address) document.getElementById('coAddress').value = state.user.address;
+  if (state.user?.phone) document.getElementById('coPhone').value = state.user.phone;
+  document.getElementById('checkoutOverlay').classList.add('show');
+}
+function closeCheckout() { document.getElementById('checkoutOverlay').classList.remove('show'); }
+function closeCheckoutOverlay(e) { if(e.target===document.getElementById('checkoutOverlay')) closeCheckout(); }
+function selectPay(el, method) {
+  document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.payMethod = method;
+}
+async function placeOrder() {
+  const address = document.getElementById('coAddress').value.trim();
+  const phone = document.getElementById('coPhone').value.trim();
+  if (!address) { toast('Please enter your delivery address'); return; }
+  if (!phone) { toast('Please enter your phone number'); return; }
+  const btn = document.getElementById('placeOrderBtn');
+  btn.textContent = 'Placing Order...'; btn.disabled = true;
+  const res = await api('/orders', 'POST', { address: `${address} | 📞 ${phone}`, paymentMethod: state.payMethod });
+  btn.textContent = '✦ Place Order'; btn.disabled = false;
+  if (res.error) { toast('Error: '+res.error); return; }
+  closeCheckout();
+  state.cart = [];
+  updateCartUI();
+  document.getElementById('successOrderId').textContent = res.id;
+  document.getElementById('successOverlay').classList.add('show');
+}
+function closeSuccess() { document.getElementById('successOverlay').classList.remove('show'); }
+
+// ══════════════════════════════════════════════
+//  AUTH
+// ══════════════════════════════════════════════
+function openAuth() { document.getElementById('authOverlay').classList.add('show'); document.body.style.overflow='hidden'; }
+function closeAuth() { document.getElementById('authOverlay').classList.remove('show'); document.body.style.overflow=''; clearAuthErr(); }
+function closeAuthOverlay(e) { if(e.target===document.getElementById('authOverlay')) closeAuth(); }
+function switchAuthTab(tab) {
+  document.getElementById('loginTab').classList.toggle('active', tab==='login');
+  document.getElementById('registerTab').classList.toggle('active', tab==='register');
+  document.getElementById('loginForm').style.display = tab==='login' ? 'flex' : 'none';
+  document.getElementById('registerForm').style.display = tab==='register' ? 'flex' : 'none';
+  document.getElementById('authTitle').textContent = tab==='login' ? 'Welcome Back' : 'Create Account';
+  document.getElementById('authSub').textContent = tab==='login' ? 'Sign in to your account' : 'Join the Samarth Masale family';
+  clearAuthErr();
+}
+function showAuthErr(msg) { const e=document.getElementById('authErr'); e.textContent=msg; e.classList.add('show'); }
+function clearAuthErr() { document.getElementById('authErr').classList.remove('show'); }
+function togglePass(id, btn) {
+  const inp = document.getElementById(id);
+  if (inp.type==='password') { inp.type='text'; btn.textContent='🙈'; }
+  else { inp.type='password'; btn.textContent='👁'; }
+}
+async function handleLogin(e) {
+  e.preventDefault(); clearAuthErr();
+  const btn = document.getElementById('loginBtn');
+  btn.textContent = 'Signing in...'; btn.disabled = true;
+  const res = await api('/auth/login','POST',{email:document.getElementById('loginEmail').value,password:document.getElementById('loginPass').value});
+  btn.textContent = '🌶 Sign In'; btn.disabled = false;
+  if (res.error) { showAuthErr(res.error); return; }
+  state.token = res.token; state.user = res.user;
+  localStorage.setItem('sm_token', res.token);
+  closeAuth(); updateNavUser();
+  await syncCart();
+  toast('🌶 Welcome back, '+res.user.name+'!');
+}
+async function handleRegister(e) {
+  e.preventDefault(); clearAuthErr();
+  const btn = document.getElementById('regBtn');
+  btn.textContent = 'Creating Account...'; btn.disabled = true;
+  const res = await api('/auth/register','POST',{name:document.getElementById('regName').value,email:document.getElementById('regEmail').value,phone:document.getElementById('regPhone').value,password:document.getElementById('regPass').value});
+  btn.textContent = '✦ Create Account'; btn.disabled = false;
+  if (res.error) { showAuthErr(res.error); return; }
+  state.token = res.token; state.user = res.user;
+  localStorage.setItem('sm_token', res.token);
+  closeAuth(); updateNavUser();
+  toast('🎉 Welcome to Samarth Masale, '+res.user.name+'!');
+}
+function updateNavUser() {
+  if (state.user) {
+    document.getElementById('navLoginBtn').style.display = 'none';
+    document.getElementById('navUserBtn').style.display = 'flex';
+    document.getElementById('navUserName').textContent = state.user.name.split(' ')[0];
+  } else {
+    document.getElementById('navLoginBtn').style.display = '';
+    document.getElementById('navUserBtn').style.display = 'none';
+  }
+}
+function logout() {
+  state.token = null; state.user = null; state.cart = [];
+  localStorage.removeItem('sm_token');
+  updateNavUser(); updateCartUI(); closeAccount();
+  toast('You have been signed out.');
+}
+
+// ══════════════════════════════════════════════
+//  ACCOUNT
+// ══════════════════════════════════════════════
+async function openAccount() {
+  if (!state.user) { openAuth(); return; }
+  document.getElementById('accName').textContent = state.user.name;
+  document.getElementById('accEmail').textContent = state.user.email;
+  document.getElementById('accAvatar').textContent = state.user.name.charAt(0).toUpperCase();
+  document.getElementById('accOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  renderAccTab('profile');
+  // fetch orders in background
+  const res = await api('/orders');
+  if (Array.isArray(res)) state.orders = res;
+}
+function closeAccount() { document.getElementById('accOverlay').classList.remove('show'); document.body.style.overflow=''; }
+function closeAccOverlay(e) { if(e.target===document.getElementById('accOverlay')) closeAccount(); }
+function switchAccTab(tab, el) {
+  document.querySelectorAll('.acc-tab-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active'); state.accTab = tab;
+  renderAccTab(tab);
+}
+function renderAccTab(tab) {
+  const c = document.getElementById('accContent');
+  if (tab === 'profile') {
+    c.innerHTML = `
+      <form class="profile-form" onsubmit="saveProfile(event)">
+        <div class="pf-row">
+          <div class="pf-group"><label>Full Name</label><input type="text" id="pfName" value="${state.user.name||''}" required/></div>
+          <div class="pf-group"><label>Phone</label><input type="tel" id="pfPhone" value="${state.user.phone||''}"/></div>
+        </div>
+        <div class="pf-group"><label>Email</label><input type="email" value="${state.user.email||''}" disabled style="opacity:.6"/></div>
+        <div class="pf-group"><label>Delivery Address</label><textarea id="pfAddr" placeholder="Your default delivery address...">${state.user.address||''}</textarea></div>
+        <button type="submit" class="save-profile-btn">✦ Save Changes</button>
+      </form>
+      <button class="logout-btn" onclick="logout()">Sign Out</button>`;
+  } else if (tab === 'orders') {
+    if (!state.orders.length) {
+      c.innerHTML = `<div class="no-orders"><div class="no-icon">📦</div><p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--maroon)">No orders yet</p><p style="font-size:.82rem;color:#8a5252;margin-top:.4rem">Start shopping to see your orders here!</p><br/><button class="btn-gold" style="font-size:.8rem" onclick="closeAccount()">Browse Products</button></div>`;
+      return;
+    }
+    c.innerHTML = state.orders.map(o => `
+      <div class="order-card">
+        <div class="order-top">
+          <span class="order-id">${o.id}</span>
+          <span class="order-date">${new Date(o.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</span>
+          <span class="order-status status-confirmed">${o.status}</span>
+        </div>
+        <div class="order-items-list">${o.items.map(i=>`${i.emoji} ${i.name} × ${i.qty}`).join(' &nbsp;|&nbsp; ')}</div>
+        <div class="order-bottom"><span class="order-total">₹${o.total}</span><span style="font-size:.72rem;color:#8a5252">via ${o.paymentMethod}</span></div>
+      </div>`).join('');
+  } else if (tab === 'settings') {
+    c.innerHTML = `
+      <div class="pf-group" style="margin-bottom:1.5rem">
+        <label>Change Password</label>
+        <input type="password" id="newPass" placeholder="New password (min. 6 chars)" style="background:var(--cream);border:1.5px solid rgba(123,13,13,.15);border-radius:10px;padding:.65rem .9rem;font-family:'Lato',sans-serif;font-size:.85rem;outline:none;width:100%;margin-top:.35rem"/>
+      </div>
+      <button class="save-profile-btn" onclick="toast('Password update coming with email OTP feature!')">Update Password</button>
+      <br/><br/>
+      <div style="background:rgba(123,13,13,.06);border-radius:14px;padding:1.2rem 1.4rem;margin-top:.5rem">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--maroon);font-weight:700;margin-bottom:.4rem">Notification Preferences</div>
+        <div style="display:flex;flex-direction:column;gap:.6rem">
+          <label style="display:flex;align-items:center;gap:.6rem;font-size:.82rem;cursor:pointer"><input type="checkbox" checked/> Order updates via SMS</label>
+          <label style="display:flex;align-items:center;gap:.6rem;font-size:.82rem;cursor:pointer"><input type="checkbox" checked/> WhatsApp notifications</label>
+          <label style="display:flex;align-items:center;gap:.6rem;font-size:.82rem;cursor:pointer"><input type="checkbox"/> Promotional offers</label>
+        </div>
+      </div>
+      <br/>
+      <button class="logout-btn" onclick="logout()">Sign Out</button>`;
+  }
+}
+async function saveProfile(e) {
+  e.preventDefault();
+  const body = { name: document.getElementById('pfName').value, phone: document.getElementById('pfPhone').value, address: document.getElementById('pfAddr').value };
+  const res = await api('/auth/profile','PUT',body);
+  if (res.error) { toast('Error: '+res.error); return; }
+  state.user = {...state.user, ...res};
+  document.getElementById('accName').textContent = state.user.name;
+  document.getElementById('navUserName').textContent = state.user.name.split(' ')[0];
+  toast('✦ Profile saved!');
+}
+
+// ══════════════════════════════════════════════
+//  MISC
+// ══════════════════════════════════════════════
+function toggleWish(b) { b.textContent = b.textContent==='🤍'?'❤️':'🤍'; }
+function submitContact(e) { e.preventDefault(); toast('✦ Message sent! We will contact you soon.'); e.target.reset(); }
+
+let toastTmr = [];
+function toast(msg) {
+  const w = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast'; t.textContent = msg;
+  w.appendChild(t);
+  setTimeout(()=>t.classList.add('show'),10);
+  const tm = setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=>t.remove(),400); },2800);
+  toastTmr.push(tm);
+}
+
+window.addEventListener('scroll',()=>{
+  const n=document.getElementById('nav');
+  const s=document.getElementById('scrollTop');
+  n.classList.toggle('scrolled',window.scrollY>55);
+  s.classList.toggle('show',window.scrollY>350);
+});
+function toggleMob(){document.getElementById('mobMenu').classList.toggle('open')}
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+
+function initCursor() {
+  const cur = document.getElementById('cursor');
+  document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+  document.querySelectorAll('a,button,.pcard,.oc,.wcard,.tcard').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cur.classList.add('grow'));
+    el.addEventListener('mouseleave',()=>cur.classList.remove('grow'));
+  });
+}
+</script>
+</body>
+</html>
